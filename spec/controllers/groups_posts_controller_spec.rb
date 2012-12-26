@@ -66,5 +66,25 @@ describe GroupsPostsController do
       end
     end
   end
+
+  describe "POST 'create'" do
+    let!(:group) { FactoryGirl.create(:group) }
+    let!(:user) { FactoryGirl.create(:user) }
+    let!(:user_group) { FactoryGirl.create(:user_group,group_id: group.id, user_id: user.id) }
+
+    context '書き込み内容に記載があるとき' do
+      before do
+        session[:user_id] = user.id
+        # FIXME このURLをどうにかできないかな。group.idが3つも出てくる
+        post :create, post: { text: Forgery::Basic.text, group_id: group.id }, id: group.id, group_id: group.id
+      end
+
+      it 'リダイレクトすること' do
+        response.should be_redirect
+        response.should redirect_to(group_posts_url + "#" + assigns(:post).idx.to_s)
+      end
+    end
+  end
+
 end
 
