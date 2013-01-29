@@ -42,7 +42,7 @@
 - unless is_secret
   .events
     %h2=_ :Events
-    = render 'events'
+    = render 'events', { events: @events, user: @user }
   
   .events_new
     - if is_member
