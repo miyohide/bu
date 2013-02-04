@@ -2,7 +2,7 @@ Bu::Application.routes.draw do
 
   get "users/test_login"
 
-  resources :user_groups
+  resources :user_groups, only: [ :update, :destroy ]
   resources :comments
 
   match '/auth/:provider/callback', :to => 'sessions#callback'
