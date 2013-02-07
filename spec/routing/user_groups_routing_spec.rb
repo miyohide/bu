@@ -17,7 +17,7 @@ describe 'routes to the user_groups' do
   
   describe 'GET /user_groups/new' do
     it 'does not route to /user_groups/new' do
-      expect(get('/user_groups')).not_to be_routable
+      expect(get('/user_groups/new')).not_to be_routable
     end
   end
   
