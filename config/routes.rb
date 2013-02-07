@@ -40,7 +40,7 @@ Bu::Application.routes.draw do
 
   resources :groups do
     get "posts/:renge" => "groups_posts#index"
-    resources :posts, :controller => 'groups_posts'
+    resources :posts, :controller => 'groups_posts', only: [:create, :index]
     resources :users, :controller => 'groups_users'
     get "member_requests" => "groups_member_requests#index"
     get "member_requests/:id/confirm" => "groups_member_requests#confirm"
