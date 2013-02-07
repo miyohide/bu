@@ -17,8 +17,10 @@ Bu::Application.routes.draw do
   get "cron/update"
   get "my" => "my#index"
 
+  # FIXME users#index marge to resources :users
+  get "users" => "users#index"
   get "users/edit" => "users#edit"
-  resources :users, only: [:index, :show, :new, :edit, :update]
+  resources :users, only: [:show, :new, :edit, :update]
 
   get "events/:id/delete" => "events#delete"
   get "events/:id/attend" => "events#attend"
