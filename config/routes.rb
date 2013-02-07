@@ -45,7 +45,7 @@ Bu::Application.routes.draw do
     get "member_requests" => "groups_member_requests#index"
     get "member_requests/:id/confirm" => "groups_member_requests#confirm"
     get "member_requests/:id/reject" => "groups_member_requests#reject"
-    resources :member_requests, :controller => 'groups_member_requests'
+    resources :member_requests, :controller => 'groups_member_requests', only: [:index]
   end
 
   # The priority is based upon order of creation:
