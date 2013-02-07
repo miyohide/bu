@@ -19,8 +19,8 @@ describe 'routes to the comments' do
   end
   
   describe 'GET /comments/new' do
-    it 'does not route to /comments/new' do
-      expect(get('/comments')).not_to be_routable
+    pending 'does not route to /comments/new' do
+      expect(get('/comments/new')).not_to be_routable
     end
   end
   
