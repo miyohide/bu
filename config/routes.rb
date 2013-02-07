@@ -17,9 +17,8 @@ Bu::Application.routes.draw do
   get "cron/update"
   get "my" => "my#index"
 
-  get "users" => "users#index"
   get "users/edit" => "users#edit"
-  resources :users
+  resources :users, only: [:index, :show, :new, :edit, :update]
 
   get "events/:id/delete" => "events#delete"
   get "events/:id/attend" => "events#attend"
