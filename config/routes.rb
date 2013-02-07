@@ -3,7 +3,7 @@ Bu::Application.routes.draw do
   get "users/test_login"
 
   resources :user_groups, only: [ :update, :destroy ]
-  resources :comments
+  resources :comments, only: [:show, :create, :destroy]
 
   match '/auth/:provider/callback', :to => 'sessions#callback'
   match '/logout' => 'sessions#destroy', :as => :logout
