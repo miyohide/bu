@@ -2,16 +2,17 @@
 
 %h1= @user.name
 
-%table
-  %tr
-    %td
-      = image_tag @user.img, :class => 'user_icon_big'
-    %td.top
-      .twitter
-        - if screen_name = @user.screen_name
-          = link_to "twitter", "https://twitter.com/#!/#{screen_name}"
-      .profile
-        profile...
+%table.table
+  %tbody
+    %tr
+      %td
+        = image_tag @user.img, :class => 'user_icon_big'
+      %td.top
+        .twitter
+          - if screen_name = @user.screen_name
+            = link_to "twitter", "https://twitter.com/#!/#{screen_name}"
+        .profile
+          profile...
 
 %h2=_'Groups'
 - @groups = @user.groups

@@ -4,4 +4,4 @@
 = render 'form', { event: @event, group: @group, last: @last}
 
 .bottom_menu
-  = link_to 'Back', group_path(@group.id)
+  = link_to 'Back', group_path(@group.id), class: 'btn btn-warning'

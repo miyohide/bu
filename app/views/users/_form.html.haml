@@ -6,7 +6,7 @@
         - user.errors.full_messages.each do |msg|
           %li= msg
 
-  %table
+  %table.table
     %tr
       %td= f.label :name
       %td= f.text_field :name, :value => user.name
@@ -15,4 +15,4 @@
       %td= f.text_field :mail, :value => user.mail
   %tr
     %td.actions
-      = f.submit 'Save'
+      = f.submit 'Save', class: 'btn btn-primary'

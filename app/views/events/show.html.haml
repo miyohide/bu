@@ -11,35 +11,36 @@
   .logo
     =image_tag @event.image_src
 
-%table
-  %tr
-    %td== #{_ 'event owner'} :
-    %td= link_to @event.owner.name, user_path(id: @event.owner.id)
-
-  %tr
-    %td== #{_ :date} :
-    %td
-      - s = @event.started_at
-      - e = @event.ended_at
-      = date_time(s)
-      - if e > s
-        == ...
-        - if s.year == e.year and s.mon == e.mon and s.day == e.day
-          = hour_min(e)
-        - else
-          = date_time(e)
-  - if @event.limit?
+%table.table
+  %tbody
     %tr
-      %td== #{_ :Limit}:
-      %td= @event.limit
-  - if @event.place?
+      %td== #{_ 'event owner'} :
+      %td= link_to @event.owner.name, user_path(id: @event.owner.id)
+  
     %tr
-      %td== #{_ :Place}:
-      %td= @event.place
-  - if @event.address?
-    %tr
-      %td== #{_ :Address}:
-      %td= @event.address
+      %td== #{_ :date} :
+      %td
+        - s = @event.started_at
+        - e = @event.ended_at
+        = date_time(s)
+        - if e > s
+          == ...
+          - if s.year == e.year and s.mon == e.mon and s.day == e.day
+            = hour_min(e)
+          - else
+            = date_time(e)
+    - if @event.limit?
+      %tr
+        %td== #{_ :Limit}:
+        %td= @event.limit
+    - if @event.place?
+      %tr
+        %td== #{_ :Place}:
+        %td= @event.place
+    - if @event.address?
+      %tr
+        %td== #{_ :Address}:
+        %td= @event.address
 
 - if @event.description?
   %hr
@@ -55,27 +56,27 @@
   - if current_user.nil?
     =_ :unknown
     - if @group.public?
-      %span.update.atnd
-        %span.attend= link_to _(:attend), attend_group_event_attendees_path(event_id: @event.id), method: :put
+      %span.atnd
+        %span.attend= link_to _(:attend), attend_group_event_attendees_path(event_id: @event.id), method: :put, class: 'btn btn-primary'
     - else
-      = link_to 'Please login...', login_path
+      = link_to 'Please login...', login_path, class: 'btn btn-primary'
   - elsif atnd = current_user.atnd(@event)
     %span.atnd== #{_ atnd.state.capitalize}
-    %span.update= link_to _(:cancel), delete_group_event_attendees_path(event_id: @event.id), method: :put
+    %span= link_to _(:cancel), delete_group_event_attendees_path(event_id: @event.id), method: :put, class: 'btn btn-danger'
   - elsif @group.member?(current_user)
     =_ :unknown
-    %span.update.atnd
-      %span.attend= link_to _(:attend), attend_group_event_attendees_path(event_id: @event.id), method: :put
-      %span.absent= link_to _(:absent), absent_group_event_attendees_path(event_id: @event.id), method: :put
-      %span.maybe= link_to _(:maybe), maybe_group_event_attendees_path(event_id: @event.id), method: :put
+    %span.atnd
+      %span.attend= link_to _(:attend), attend_group_event_attendees_path(event_id: @event.id), method: :put, class: 'btn btn-primary'
+      %span.absent= link_to _(:absent), absent_group_event_attendees_path(event_id: @event.id), method: :put, class: 'btn btn-danger'
+      %span.maybe= link_to _(:maybe), maybe_group_event_attendees_path(event_id: @event.id), method: :put, class: 'btn btn-warning'
   - else
     =_ :unknown
     - if @group.public?
-      %span.update.atnd
-        %span.attend= link_to _(:attend), attend_group_event_attendees_path(event_id: @event.id), method: :put
+      %span.atnd
+        %span.attend= link_to _(:attend), attend_group_event_attendees_path(event_id: @event.id), method: :put, class: 'btn btn-primary'
     - else
       You are not a member of
-      = link_to @group.name, group_path(@group.id)
+      = link_to @group.name, group_path(@group.id), class: 'btn btn-warning'
 
 %hr
 
@@ -117,28 +118,44 @@
 - if current_user and @group.member?(current_user)
   = render 'comments/form', comment: @comment, group: @group, event: @event
 
-%table.comments
+%table.comments.table
+  %caption
+    コメント一覧
+  %thead
+    %tr
+      %th
+      %th
+        コメント者
+      %th
+        コメント内容
+      %th
+        コメント日時
+      %th
+        コメント詳細
   - @event.comments.order('created_at desc').each do |comment|
-    %tr.comment
-      %td
-        = user_icon comment.user, :middle
-      %td.bold
-        = link_to comment.user_name, comment.user
-      %td
-        != comment_html_compiler(comment.text)
-        %span.small= link_to date_time(comment.created_at), group_event_comment_path(group_id: @group.id, event_id: @event.id, id: comment.id)
-
+    %tbody
+      %tr.comment
+        %td
+          = user_icon comment.user, :middle
+        %td.bold
+          = link_to comment.user_name, comment.user
+        %td
+          != comment_html_compiler(comment.text)
+        %td
+          = date_time(comment.created_at)
+        %td
+          = link_to 'コメント詳細', group_event_comment_path(group_id: @group.id, event_id: @event.id, id: comment.id), class: 'btn btn-primary'
 
 - if current_user and @event.manager?(current_user)
   .admin_menu
     %h2=_ 'admin menu'
-    = link_to _(:Edit), edit_group_event_path(group_id: @group.id, id: @event.id)
+    = link_to _(:Edit), edit_group_event_path(group_id: @group.id, id: @event.id), class: 'btn btn-primary'
     - if @event.canceled?
       = link_to _('Be active'), be_active_group_event_path(group_id: @group.id, id: @event.to_param), method: :put
     - else
-      = link_to _('Cancel Event'), cancel_group_event_path(group_id: @group.id, id: @event.to_param), method: :put
-    = link_to _(:Destroy), group_event_path(group_id: @group.id, id: @event.id), :confirm => 'Destroy event: Are you sure?', :method => :delete
+      = link_to _('Cancel Event'), cancel_group_event_path(group_id: @group.id, id: @event.to_param), method: :put, class: 'btn btn-warning'
+    = link_to _(:Destroy), group_event_path(group_id: @group.id, id: @event.id), :confirm => 'Destroy event: Are you sure?', :method => :delete, class: 'btn btn-danger'
 
 .bottom_menu
   - unless @group.hidden?
-    = link_to @group.name, group_path(@group.id)
+    = link_to "部活「#{@group.name}」に戻る", group_path(@group.id), class: 'btn btn-warning'
