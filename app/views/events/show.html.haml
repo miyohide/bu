@@ -11,7 +11,7 @@
   .logo
     =image_tag @event.image_src
 
-%table
+%table.table
   %tr
     %td== #{_ 'event owner'} :
     %td= link_to @event.owner.name, user_path(id: @event.owner.id)
@@ -117,7 +117,7 @@
 - if current_user and @group.member?(current_user)
   = render 'comments/form', comment: @comment, group: @group, event: @event
 
-%table.comments
+%table.comments.table
   - @event.comments.order('created_at desc').each do |comment|
     %tr.comment
       %td

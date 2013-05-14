@@ -6,7 +6,7 @@
 
 .users
   - is_manager = @user && @group.manager?(@user)
-  %table
+  %table.table
     %tr
       %th=_ :name
       %th=_ :created_at

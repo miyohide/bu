@@ -2,7 +2,7 @@
 
 - is_secret = @group.secret? && !@group.member?(current_user)
 
-%table
+%table.table
   %tr
     - if @group.image_url?
       %td.logo
@@ -50,7 +50,7 @@
   - unless @group.hidden?
     .posts
       %h2=_ :Posts
-      %table
+      %table.table
         - @group.posts.order('created_at desc').limit(3).each do |post|
           %tr
             %td= user_icon post.user, :middle
@@ -66,7 +66,7 @@
       %h2
         =_ :Users
         == (#{@group.users.count})
-      %table
+      %table.table
         %tr
           %th
           %th

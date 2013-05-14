@@ -6,7 +6,7 @@
 
 .users
   - is_manager = current_user && @group.manager?(current_user)
-  %table
+  %table.table
     %tr
       %th
       %th=_ :name
