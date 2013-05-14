@@ -14,12 +14,13 @@
         = @group.summary
         - if !is_secret and @group.description? and !params[:show_description]
           &#187;
-          = link_to 'もっと詳しく', description_group_path(@group.id)
+          = link_to 'もっと詳しく', description_group_path(@group.id), class: 'btn btn-primary'
       .description
         - if !is_secret and params[:show_description]
           %p
             &#171;
-            = link_to '説明を閉じる', group_path
+            = link_to '説明を閉じる', group_path, class: 'btn btn-primary'
+
           != html_compiler(@group.description)
 
       .status.right
