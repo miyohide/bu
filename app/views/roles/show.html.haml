@@ -3,25 +3,27 @@
   = @user.name
   =_ "'s ATNDS"
 
-%table
-  %tr
-    %th=_ :date
-    %th=_ :event
-    %th=_ :atnd
-  - @events.each do |event|
+%table.table
+  %thead
     %tr
-      - atnd = @user.atnd(event)
-      %td
-        = year_month_day event.started_at
-      %td
-        %b= link_to to_short(event.title, 12), group_event_path(group_id: @group.id, id: event.id)
-      %td.atnd
-        - if atnd
-          =_ atnd.state.capitalize
-      %td.gray
-        - if event.ended?
-          =_'ended'
+      %th=_ :date
+      %th=_ :event
+      %th=_ :atnd
+  - @events.each do |event|
+    %tbody
+      %tr
+        - atnd = @user.atnd(event)
+        %td
+          = year_month_day event.started_at
+        %td
+          %b= link_to to_short(event.title, 12), group_event_path(group_id: @group.id, id: event.id)
+        %td.atnd
+          - if atnd
+            %span.label.label-info=_ atnd.state.capitalize
+        %td.gray
+          - if event.ended?
+            =_'ended'
 
 .bottom_menu
-  = link_to @group.name, group_path(@group)
-  = link_to _('listing users'), group_roles_path
+  = link_to "部活「#{@group.name}」に戻る", group_path(@group), class: 'btn btn-warning'
+  = link_to "#{_('listing users')}に戻る", group_roles_path, class: 'btn btn-warning'
