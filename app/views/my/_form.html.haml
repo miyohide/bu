@@ -18,9 +18,11 @@
   .control-group
     = f.label :locale, :Locale, class: 'control-label'
     .controls
-      = f.radio_button :locale, "english"
-      = f.label :locale_english, 'English'
-      = f.radio_button :locale, "japanese"
-      = f.label :locale_japanese, 'Japanese'
+      %label.radio.inline
+        = f.radio_button :locale, "english"
+        English
+      %label.radio.inline
+        = f.radio_button :locale, "japanese"
+        Japanese
   .control-group
     = f.submit 'Save', class: 'btn btn-primary'
