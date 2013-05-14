@@ -65,3 +65,7 @@ gem "i18n_generators"
 
 # Exception Error Notice
 gem "exception_notification"
+
+gem 'bootstrap-sass', '~> 2.3.1.0'
+
+

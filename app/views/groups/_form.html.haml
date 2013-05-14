@@ -1,4 +1,4 @@
-= form_for group do |f|
+= form_for group, html: {class: 'form-horizontal'} do |f|
   -if group.errors.any?
     #error_explanation
       %h2= "#{pluralize(group.errors.count, "error")} prohibited this group from being saved:"
@@ -6,20 +6,27 @@
         - group.errors.full_messages.each do |msg|
           %li= msg
 
-  .field
-    %p= f.label :name, _(:Name)
-    = f.text_field :name
-  .field
-    %p= f.label :summary, _(:Summary)
-    = f.text_field :summary, :size => '60'
-  .field
-    %p= f.label :permission, _(:Permission)
-    = f.select(:permission, [[_('Public'), 0], [_('Must be allowed'), 1], [_('Secret'), 2]])
-  .field
-    %p= f.label :description, _(:Description)
-    = f.text_area :description, :size => '60x8'
-  .field
-    %p= f.label :image_url, _(:Image)
-    = f.text_field :image_url, :size => 60
-  .actions
-    = f.submit 'Save'
+  .control-group
+    = f.label :name, _(:Name), class: 'control-label'
+    .controls
+      = f.text_field :name
+  .control-group
+    = f.label :summary, _(:Summary), class: 'control-label'
+    .controls
+      = f.text_field :summary, :size => '60'
+  .control-group
+    = f.label :permission, _(:Permission), class: 'control-label'
+    .controls
+      = f.select(:permission, [[_('Public'), 0], [_('Must be allowed'), 1], [_('Secret'), 2]])
+  .control-group
+    = f.label :description, _(:Description), class: 'control-label'
+    .controls
+      = f.text_area :description, :size => '60x8'
+  .control-group
+    = f.label :image_url, _(:Image), class: 'control-label'
+    .controls
+      = f.text_field :image_url, :size => 60
+  .control-group
+    .controls
+      = f.submit 'Save', class: 'btn btn-primary'
+
