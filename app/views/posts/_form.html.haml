@@ -1,4 +1,4 @@
-= form_for post, :url => group_posts_path do |f|
+= form_for post, :url => group_posts_path, html: {class: 'form-horizontal'} do |f|
   -if post.errors.any?
     #error_explanation
       %h2= "#{pluralize(post.errors.count, "error")} prohibited this post from being saved:"
@@ -6,13 +6,17 @@
         - post.errors.full_messages.each do |msg|
           %li= msg
 
-  .actions
-    = f.submit _('Post')
-    = f.label :subject, "#{_('subject')}:"
-    = f.text_field :subject, :size => '24'
-    %span.small
+  .control-group
+    = f.label :subject, "#{_('subject')}:", class: 'control-label'
+    .controls
+      = f.text_field :subject, :size => '24'
+      %span.small
       件名が空欄の場合はメール通知しません
     =# f.label :notification, _('Notification')
     =# f.select(:notification, [[_("Don't notify to members"), 0], [_('Notify to members'), 1]])
-  .field
-    = f.text_area :text, :size => '58x4'
+  .control-group
+    = f.label :text, 'コメント内容', class: 'control-label'
+    .controls
+      = f.text_area :text, :size => '58x4'
+  .form-actions
+    = f.submit _('Post'), class: 'btn btn-primary'
