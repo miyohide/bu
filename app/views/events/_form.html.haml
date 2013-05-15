@@ -1,5 +1,5 @@
 - is_hidden = group.hidden?
-= form_for [group, event] do |f|
+= form_for [group, event], html: {class: 'form-horizontal'} do |f|
   -if event.errors.any?
     #error_explanation
       %h2= "#{pluralize(event.errors.count, "error")} prohibited this event from being saved:"
@@ -7,47 +7,49 @@
         - event.errors.full_messages.each do |msg|
           %li= msg
 
-  %table.table
-    %tbody
-      %tr.field
-        %td= f.label :title
-        %td
-          = f.text_field :title, :value => event.title
-          - unless is_hidden
-            %span.gray== 過去の入力:#{last.try(:title)}
-            %span.gray @todo:クリックで過去の入力を選択
-      %tr.field
-        %td= f.label :limit
-        %td
-          = f.number_field :limit, :value => event.limit
-          - unless is_hidden
-            %span.gray== 過去の入力:#{last.try(:limit)}
-      %tr.field
-        %td= f.label :place
-        %td
-          = f.text_field :place, :value => event.place || last.try(:place)
-          - unless is_hidden
-            %span.gray== 過去の入力:#{last.try(:place)}
-      %tr.field
-        %td= f.label :address
-        %td
-          = f.text_field :address, :value => event.address || last.try(:address)
-          - unless is_hidden
-            %span.gray== 過去の入力:#{last.try(:address)}
-      %tr.field
-        %td= f.label :started_at
-        %td= f.datetime_select :started_at, :use_month_numbers => true, :minute_step => 10
-      %tr.field
-        %td= f.label :ended_at
-        %td= f.datetime_select :ended_at, :use_month_numbers => true, :minute_step => 10
-      %tr.field
-        %td.top= f.label :description
-        %td= f.text_area :description, :size => '60x8'
-      %tr.field
-        %td= f.label :image_url
-        %td
-          = f.text_field :image_url, :value => event.image_url || last.try(:image_url)
-          - unless is_hidden
-            %span.gray== 過去の入力:#{last.try(:image_url)}
-  .actions
-    = f.submit 'Save'
+  .control-group
+    = f.label :title, class: 'control-label'
+    .controls
+      = f.text_field :title, value: event.title
+      - unless is_hidden
+        %span.gray== 過去の入力:#{last.try(:title)}
+        %span.gray @todo:クリックで過去の入力を選択
+  .control-group
+    = f.label :limit, class: 'control-label'
+    .controls
+      = f.number_field :limit, value: event.limit
+      - unless is_hidden
+        %span.gray== 過去の入力:#{last.try(:limit)}
+  .control-group
+    = f.label :place, class: 'control-label'
+    .controls
+      = f.text_field :place, :value => event.place || last.try(:place)
+      - unless is_hidden
+        %span.gray== 過去の入力:#{last.try(:place)}
+  .control-group
+    = f.label :address, class: 'control-label'
+    .controls
+      = f.text_field :address, :value => event.address || last.try(:address)
+      - unless is_hidden
+        %span.gray== 過去の入力:#{last.try(:address)}
+  .control-group
+    = f.label :started_at, class: 'control-label'
+    .controls
+      = f.datetime_select :started_at, {use_month_numbers: true, minute_step: 10}, {class: 'input-mini'}
+  .control-group
+    = f.label :ended_at, class: 'control-label'
+    .controls
+      = f.datetime_select :ended_at, {use_month_numbers: true, minute_step: 10}, {class: 'input-mini'}
+  .control-group
+    = f.label :description, class: 'control-label'
+    .controls
+      = f.text_area :description, :size => '60x8'
+  .control-group
+    = f.label :image_url, class: 'control-label'
+    .controls
+      = f.text_field :image_url, value: event.image_url || last.try(:image_url)
+      - unless is_hidden
+        %span.gray== 過去の入力:#{last.try(:image_url)}
+  .control-group
+    .controls
+      = f.submit 'Save', class: 'btn btn-primary'
