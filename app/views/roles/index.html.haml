@@ -37,14 +37,14 @@
           %th= user.user_group(@group).role
           - if is_manager
             %td
-              =form_for user.user_group(@group), {url: group_role_path(group_id: @group.id, id: user.user_group(@group).id)} do |f|
+              =form_for user.user_group(@group), {url: group_role_path(group_id: @group.id, id: user.user_group(@group).id), class: 'form-inline'} do |f|
                 %span.field
-                  =f.text_field :role, :size => '16'
+                  =f.text_field :role, :size => '16', class: 'input-small'
                   %span.actions
-                    =f.submit _'Set role'
+                    =f.submit _('Set role'), class: 'btn btn-primary'
             %td
               - unless @group.owner?(user)
-                = link_to _(:remove), group_role_path(id: user.user_group(@group), group_id: @group.id), :confirm => 'Are you sure?', :method => :delete
+                = link_to _(:remove), group_role_path(id: user.user_group(@group), group_id: @group.id), :confirm => 'Are you sure?', :method => :delete, class: 'btn btn-danger'
 .bottom_menu
   = link_to @group.name, group_path(@group.id)
   - if @group.manager?(current_user) and !@group.public?
