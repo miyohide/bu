@@ -7,18 +7,20 @@
 .users
   - is_manager = @user && @group.manager?(@user)
   %table.table
-    %tr
-      %th=_ :name
-      %th=_ :created_at
-      %th=_ 'admin menu'
+    %thead
+      %tr
+        %th=_ :name
+        %th=_ :created_at
+        %th=_ 'admin menu'
     - @group.member_requests.each do |req|
       - user = req.user
-      %tr
-        %td= link_to user.name, user
-        %td=_ date_time(user.created_at)
-        %td.bold.update
-          = link_to _(:confirm), confirm_group_membership_path(id: req.id, group_id: @group.id), method: :put
-          = link_to _(:reject), reject_group_membership_path(id: req.id, group_id: @group.id), method: :put
+      %tbody
+        %tr
+          %td= link_to user.name, user
+          %td=_ date_time(user.created_at)
+          %td.bold.update
+            = link_to _(:confirm), confirm_group_membership_path(id: req.id, group_id: @group.id), method: :put
+            = link_to _(:reject), reject_group_membership_path(id: req.id, group_id: @group.id), method: :put
 
 .bottom_menu
   = link_to @group.name, @group

@@ -8,45 +8,46 @@
           %li= msg
 
   %table.table
-    %tr.field
-      %td= f.label :title
-      %td
-        = f.text_field :title, :value => event.title
-        - unless is_hidden
-          %span.gray== 過去の入力:#{last.try(:title)}
-          %span.gray @todo:クリックで過去の入力を選択
-    %tr.field
-      %td= f.label :limit
-      %td
-        = f.number_field :limit, :value => event.limit
-        - unless is_hidden
-          %span.gray== 過去の入力:#{last.try(:limit)}
-    %tr.field
-      %td= f.label :place
-      %td
-        = f.text_field :place, :value => event.place || last.try(:place)
-        - unless is_hidden
-          %span.gray== 過去の入力:#{last.try(:place)}
-    %tr.field
-      %td= f.label :address
-      %td
-        = f.text_field :address, :value => event.address || last.try(:address)
-        - unless is_hidden
-          %span.gray== 過去の入力:#{last.try(:address)}
-    %tr.field
-      %td= f.label :started_at
-      %td= f.datetime_select :started_at, :use_month_numbers => true, :minute_step => 10
-    %tr.field
-      %td= f.label :ended_at
-      %td= f.datetime_select :ended_at, :use_month_numbers => true, :minute_step => 10
-    %tr.field
-      %td.top= f.label :description
-      %td= f.text_area :description, :size => '60x8'
-    %tr.field
-      %td= f.label :image_url
-      %td
-        = f.text_field :image_url, :value => event.image_url || last.try(:image_url)
-        - unless is_hidden
-          %span.gray== 過去の入力:#{last.try(:image_url)}
+    %tbody
+      %tr.field
+        %td= f.label :title
+        %td
+          = f.text_field :title, :value => event.title
+          - unless is_hidden
+            %span.gray== 過去の入力:#{last.try(:title)}
+            %span.gray @todo:クリックで過去の入力を選択
+      %tr.field
+        %td= f.label :limit
+        %td
+          = f.number_field :limit, :value => event.limit
+          - unless is_hidden
+            %span.gray== 過去の入力:#{last.try(:limit)}
+      %tr.field
+        %td= f.label :place
+        %td
+          = f.text_field :place, :value => event.place || last.try(:place)
+          - unless is_hidden
+            %span.gray== 過去の入力:#{last.try(:place)}
+      %tr.field
+        %td= f.label :address
+        %td
+          = f.text_field :address, :value => event.address || last.try(:address)
+          - unless is_hidden
+            %span.gray== 過去の入力:#{last.try(:address)}
+      %tr.field
+        %td= f.label :started_at
+        %td= f.datetime_select :started_at, :use_month_numbers => true, :minute_step => 10
+      %tr.field
+        %td= f.label :ended_at
+        %td= f.datetime_select :ended_at, :use_month_numbers => true, :minute_step => 10
+      %tr.field
+        %td.top= f.label :description
+        %td= f.text_area :description, :size => '60x8'
+      %tr.field
+        %td= f.label :image_url
+        %td
+          = f.text_field :image_url, :value => event.image_url || last.try(:image_url)
+          - unless is_hidden
+            %span.gray== 過去の入力:#{last.try(:image_url)}
   .actions
     = f.submit 'Save'

@@ -53,14 +53,15 @@
       %h2=_ :Posts
       %table.table
         - @group.posts.order('created_at desc').limit(3).each do |post|
-          %tr
-            %td= user_icon post.user, :middle
-            %td= link_to year_month_day(post.created_at), index_group_posts_path(group_id: @group.id, renge: post.idx)
-            %td
-              - if post.subject and !post.subject.empty?
-                %b= to_short post.subject, 20
-                \:
-              = to_short post.text, 75
+          %tbody
+            %tr
+              %td= user_icon post.user, :middle
+              %td= link_to year_month_day(post.created_at), index_group_posts_path(group_id: @group.id, renge: post.idx)
+              %td
+                - if post.subject and !post.subject.empty?
+                  %b= to_short post.subject, 20
+                  \:
+                = to_short post.text, 75
       %p= link_to _(@group.posts.count == 0 ? 'new post' : 'read more'), index_group_posts_path(group_id: @group.id, renge: "all"), class: 'btn btn-primary'
 
     .users
@@ -68,33 +69,35 @@
         =_ :Users
         == (#{@group.users.count})
       %table.table
-        %tr
-          %th
-          %th
-          %th
-          - @events.each do |event|
-            %td
-              - link = link_to month_day(event.started_at), group_event_path(event.id)
-              - if event.ended?
-                = link
-              - else
-                %b= link
-        - @group.users.each do |user|
+        %thead
           %tr
-            %td
-              = user_icon user, :middle
-            %td{:class => @group.manager?(user) ? 'bold' : '' }
-              = link_to "#{user.name}(#{user.attendance_count(@group)})", user_path(user.id)
-            %td
-              - if @group.owner?(user)
-                =_ :owner
-              - else
-                = user.role(@group) or _(user.status(@group))
+            %th
+            %th
+            %th
             - @events.each do |event|
-              %td.center
-                - atnd = user.atnd(event)
-                - if atnd
-                  = { 'at' => '+', 'ab' => '-', 'ma' => '?' }[atnd.state[0..1]]
+              %td
+                - link = link_to month_day(event.started_at), group_event_path(event.id)
+                - if event.ended?
+                  = link
+                - else
+                  %b= link
+        - @group.users.each do |user|
+          %tbody
+            %tr
+              %td
+                = user_icon user, :middle
+              %td{:class => @group.manager?(user) ? 'bold' : '' }
+                = link_to "#{user.name}(#{user.attendance_count(@group)})", user_path(user.id)
+              %td
+                - if @group.owner?(user)
+                  =_ :owner
+                - else
+                  = user.role(@group) or _(user.status(@group))
+              - @events.each do |event|
+                %td.center
+                  - atnd = user.atnd(event)
+                  - if atnd
+                    = { 'at' => '+', 'ab' => '-', 'ma' => '?' }[atnd.state[0..1]]
       %p
         = link_to _('listing users'), group_roles_path(group_id: @group.id), class: 'btn btn-primary'
         - if @group.manager?(current_user) and !@group.public?

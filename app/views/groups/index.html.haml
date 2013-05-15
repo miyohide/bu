@@ -1,22 +1,24 @@
 %h1 Groups
 
 %table.table
-  %tr
-    %th Name
-    %th Description
-    %th Owner
-    %th
-    %th
-    %th
+  %thead
+    %tr
+      %th Name
+      %th Description
+      %th Owner
+      %th
+      %th
+      %th
 
   - @groups.each do |group|
-    %tr
-      %td= group.name
-      %td= group.description
-      %td= group.owner ? group.owner.name : 'none'
-      %td= link_to 'Show', group_path(group.id)
-      %td= link_to 'Edit', edit_group_path(group.id)
-      %td= link_to 'Destroy', group_path(group.id), :confirm => 'Are you sure?', :method => :delete
+    %tbody
+      %tr
+        %td= group.name
+        %td= group.description
+        %td= group.owner ? group.owner.name : 'none'
+        %td= link_to 'Show', group_path(group.id)
+        %td= link_to 'Edit', edit_group_path(group.id)
+        %td= link_to 'Destroy', group_path(group.id), :confirm => 'Are you sure?', :method => :delete
 
 %br
 
