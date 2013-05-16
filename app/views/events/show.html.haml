@@ -56,24 +56,24 @@
   - if current_user.nil?
     =_ :unknown
     - if @group.public?
-      %span.update.atnd
-        %span.attend= link_to _(:attend), attend_group_event_attendees_path(event_id: @event.id), method: :put
+      %span.atnd
+        %span.attend= link_to _(:attend), attend_group_event_attendees_path(event_id: @event.id), method: :put, class: 'btn btn-primary'
     - else
       = link_to 'Please login...', login_path
   - elsif atnd = current_user.atnd(@event)
     %span.atnd== #{_ atnd.state.capitalize}
-    %span.update= link_to _(:cancel), delete_group_event_attendees_path(event_id: @event.id), method: :put
+    %span= link_to _(:cancel), delete_group_event_attendees_path(event_id: @event.id), method: :put, class: 'btn btn-danger'
   - elsif @group.member?(current_user)
     =_ :unknown
-    %span.update.atnd
-      %span.attend= link_to _(:attend), attend_group_event_attendees_path(event_id: @event.id), method: :put
-      %span.absent= link_to _(:absent), absent_group_event_attendees_path(event_id: @event.id), method: :put
-      %span.maybe= link_to _(:maybe), maybe_group_event_attendees_path(event_id: @event.id), method: :put
+    %span.atnd
+      %span.attend= link_to _(:attend), attend_group_event_attendees_path(event_id: @event.id), method: :put, class: 'btn btn-primary'
+      %span.absent= link_to _(:absent), absent_group_event_attendees_path(event_id: @event.id), method: :put, class: 'btn btn-danger'
+      %span.maybe= link_to _(:maybe), maybe_group_event_attendees_path(event_id: @event.id), method: :put, class: 'btn btn-warning'
   - else
     =_ :unknown
     - if @group.public?
-      %span.update.atnd
-        %span.attend= link_to _(:attend), attend_group_event_attendees_path(event_id: @event.id), method: :put
+      %span.atnd
+        %span.attend= link_to _(:attend), attend_group_event_attendees_path(event_id: @event.id), method: :put, class: 'btn btn-primary'
     - else
       You are not a member of
       = link_to @group.name, group_path(@group.id)
