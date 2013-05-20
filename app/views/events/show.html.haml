@@ -119,6 +119,19 @@
   = render 'comments/form', comment: @comment, group: @group, event: @event
 
 %table.comments.table
+  %caption
+    コメント一覧
+  %thead
+    %tr
+      %th
+      %th
+        コメント者
+      %th
+        コメント内容
+      %th
+        コメント日時
+      %th
+        コメント詳細
   - @event.comments.order('created_at desc').each do |comment|
     %tbody
       %tr.comment
@@ -128,8 +141,10 @@
           = link_to comment.user_name, comment.user
         %td
           != comment_html_compiler(comment.text)
-          %span.small= link_to date_time(comment.created_at), group_event_comment_path(group_id: @group.id, event_id: @event.id, id: comment.id)
-
+        %td
+          = date_time(comment.created_at)
+        %td
+          = link_to 'コメント詳細', group_event_comment_path(group_id: @group.id, event_id: @event.id, id: comment.id), class: 'btn btn-primary'
 
 - if current_user and @event.manager?(current_user)
   .admin_menu
