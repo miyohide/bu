@@ -32,11 +32,11 @@
           - if event.ended?
             %td.gray=_'ended'
           - elsif atnd
-            %td.update= link_to _(:cancel), delete_group_event_attendees_path(group_id: group.id, event_id: event.id), method: :put
+            %td.update= link_to _(:cancel), delete_group_event_attendees_path(group_id: group.id, event_id: event.id), method: :put, class: 'btn btn-danger'
           - elsif event.group.member?(user)
             %td.update.atnd
-              = link_to _(:attend), attend_group_event_attendees_path(group_id: group.id, event_id: event.id), method: :put
-              = link_to _(:absent), absent_group_event_attendees_path(group_id: group.id, event_id: event.id), method: :put
-              = link_to _(:maybe), maybe_group_event_attendees_path(group_id: group.id, event_id: event.id), method: :put
+              = link_to _(:attend), attend_group_event_attendees_path(group_id: group.id, event_id: event.id), method: :put, class: 'btn btn-primary'
+              = link_to _(:absent), absent_group_event_attendees_path(group_id: group.id, event_id: event.id), method: :put, class: 'btn btn-danger'
+              = link_to _(:maybe), maybe_group_event_attendees_path(group_id: group.id, event_id: event.id), method: :put, class: 'btn btn-warning'
 
 = javascript_tag '$("img.event_icon_small").MyThumbnail({ thumbWidth:40, thumbHeight:28, backgroundColor:"#fff", imageDivClass:"event_icon_small" });'
