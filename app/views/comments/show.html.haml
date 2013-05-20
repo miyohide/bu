@@ -3,7 +3,7 @@
   .text
     = @comment.text
   .date_time
-    %span.small= link_to date_time(@comment.created_at), group_event_comment_path(group_id: @group.id, event_id: @event.id, id: @comment.id)
+    %span.small= date_time(@comment.created_at)
 
-= link_to 'Back', group_event_path(group_id: @comment.event.group.id, id: @comment.event), class: 'btn btn-warning'
+= link_to 'イベントに戻る', group_event_path(group_id: @comment.event.group.id, id: @comment.event), class: 'btn btn-warning'
 
