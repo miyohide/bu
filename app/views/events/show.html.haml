@@ -143,4 +143,4 @@
 
 .bottom_menu
   - unless @group.hidden?
-    = link_to @group.name, group_path(@group.id), class: 'btn btn-warning'
+    = link_to "グループ「#{@group.name}」に戻る", group_path(@group.id), class: 'btn btn-warning'
