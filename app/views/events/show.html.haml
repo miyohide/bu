@@ -59,7 +59,7 @@
       %span.atnd
         %span.attend= link_to _(:attend), attend_group_event_attendees_path(event_id: @event.id), method: :put, class: 'btn btn-primary'
     - else
-      = link_to 'Please login...', login_path, 'btn btn-primary'
+      = link_to 'Please login...', login_path, class: 'btn btn-primary'
   - elsif atnd = current_user.atnd(@event)
     %span.atnd== #{_ atnd.state.capitalize}
     %span= link_to _(:cancel), delete_group_event_attendees_path(event_id: @event.id), method: :put, class: 'btn btn-danger'
