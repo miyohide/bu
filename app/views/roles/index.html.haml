@@ -49,4 +49,4 @@
   = link_to "部活「#{@group.name}」に戻る", group_path(@group.id), class: 'btn btn-warning'
   - if @group.manager?(current_user) and !@group.public?
     - text = "#{_('listing requests')}(#{@group.requesting_users.count})"
-    = link_to text, group_memberships_path(group_id: @group.id)
+    = link_to text, group_memberships_path(group_id: @group.id), class: 'btn btn-primary'

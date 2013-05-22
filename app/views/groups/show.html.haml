@@ -102,7 +102,7 @@
         = link_to _('listing users'), group_roles_path(group_id: @group.id), class: 'btn btn-primary'
         - if @group.manager?(current_user) and !@group.public?
           - text = "#{_('listing requests')}(#{@group.requesting_users.count})"
-          = link_to text, group_memberships_path(group_id: @group.id)
+          = link_to text, group_memberships_path(group_id: @group.id), class: 'btn btn-primary'
 
   .bottom_menu
     - if is_member and !@group.owner?(current_user) and !@group.hidden?
