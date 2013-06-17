@@ -3,6 +3,8 @@ class Event < ActiveRecord::Base
   class NotEventOwner < Exception ; end
   class NotEventManager < Exception ; end
 
+  attr_accessible :title, :limit, :started_at, :ended_at, :group_id, :canceled, :place, :address, :description, :image_url, :ended
+
   belongs_to :group
 
   has_many :comments, dependent: :destroy
@@ -15,6 +17,9 @@ class Event < ActiveRecord::Base
   validates :address, length: { maximum: 255 }
   validates :limit,   numericality: { greater_than_or_equal_to:    1,
                                       less_than_or_equal_to:    1000 }
+
+  scope :closed, lambda { where(events: { canceled: false }).where("events.ended_at < ?", Time.now) }
+  scope :in_recent_times, lambda { order("events.started_at DESC").limit(configatron.recent_entry_coun) }
 
   def img
     src = image_src
